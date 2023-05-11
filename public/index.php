@@ -9,39 +9,70 @@
     <link rel="stylesheet" href="./font/bootstrap-icons.css">
 </head>
 <body>
-<form class="row needs-validation" action="tambah.php" method="post">
-        <div class="col-md-12">
-            <label for="validationCustom01" class="form-label">First name</label>
-            <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-            <div class="valid-feedback">
-            Looks good!
-            </div>
-        </div>
 
+<div class="col-lg-10 col-xxl-4 my-5 mx-auto">
+<div clsss="col align-self-end">
+    <a class="btn btn-small btn-success"href="./tambah.php"><i class="bi bi-clipboard-plus"></i> Tambah</a> 
+</div>
+<div id="main" class="d-grid">
+    <h1>Daftar Data Diri Mahasiswa</h1>
+    <div class="col align-self-end">
+        <a class="btn btn-small btn-success" href="./tambah.php"><i class="bi bi-clipboard-plus"></i>
+</div>
+        <?php
+            //menyematkan modul koneksi database.
+            require_once "./conn.php";
+
+            $sql = "SELECT * FROM 'data_diri'";
+        ?>
+        
+        <table class="table table-stripped">
+            <thead>
+            <tr>
+                <td>No.</td>
+                <td>NIM</td>
+                <td>NAMA</td>
+                <td>JENIS KELAMIN</td>
+                <td>TEMPAT LAHIR</td>
+                <td>TANGGAL LAHIR</td>
+                <td>ALAMAT</td>
+                <td>AKSI</td>
+    
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+        <?php
+
+            $no = 1;
+
+            if(result = mysqli_query($conn, $sql)) {
+                while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+            <tr>
+                <td><?php echo $no; $no++ ?></td> 
+                <td><?php echo $row['nim'] ?></td> 
+                <td><?php echo $row['nama'] ?></td> 
+                <td><?php echo $row['jenis_kelamin'] ?></td> 
+                <td><?php echo $row['tpt_lahir'] ?></td> 
+                <td><?php echo $row['tgl_lahir'] ?></td> 
+                <td><?php echo $row['alamat'] ?></td>
+                <td><a class="btn btn-small btn-warning"href="./edit.php"><i class="bi bi-pencil-square"></i> Ubah</a> 
+                    <a class="btn btn-small btn-danger"href="./hapus.php"><i class="bi bi-trash"></i> Hapus</a></td>
+            </tr>
+        <?php           
+                }
+                )
+            }
+        ?>
+                </tr>
+            </tbody>
 </form>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (() => {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-        }, false)
-    })
-    })()
+ 
 
 </body>
 </html>
